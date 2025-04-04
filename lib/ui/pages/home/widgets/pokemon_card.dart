@@ -20,6 +20,13 @@ class PokemonCard extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(16)),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 3),
+              blurRadius: 2,
+              color: Colors.black12,
+            ),
+          ],
         ),
         child: Column(
           children: [
