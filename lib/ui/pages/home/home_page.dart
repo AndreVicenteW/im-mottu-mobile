@@ -44,29 +44,31 @@ class HomePage extends GetView<HomeController> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            controller.obx(
-              onLoading: const Center(child: CircularProgressIndicator()),
-              onEmpty: const Text('No data found'),
-              onError: (error) => Center(child: Text(error ?? '')),
-              (state) => GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: state
-                        ?.map(
-                          (pokemon) => PokemonCard(
-                            pokemon: pokemon,
-                            onTap: () {
-                              Get.toNamed(
-                                AppRoutes.pokemonDetails,
-                                arguments: pokemon.name,
-                              );
-                            },
-                          ),
-                        )
-                        .toList() ??
-                    [],
+            Expanded(
+              child: controller.obx(
+                onLoading: const Center(child: CircularProgressIndicator()),
+                onEmpty: const Text('No data found'),
+                onError: (error) => Center(child: Text(error ?? '')),
+                (state) => GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  children: state
+                          ?.map(
+                            (pokemon) => PokemonCard(
+                              pokemon: pokemon,
+                              onTap: () {
+                                Get.toNamed(
+                                  AppRoutes.pokemonDetails,
+                                  arguments: pokemon.name,
+                                );
+                              },
+                            ),
+                          )
+                          .toList() ??
+                      [],
+                ),
               ),
             ),
           ],
