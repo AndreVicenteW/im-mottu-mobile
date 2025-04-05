@@ -16,6 +16,8 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        scrolledUnderElevation: 0.0,
+        backgroundColor: Colors.transparent,
         title: TextFormField(
           textInputAction: TextInputAction.search,
           controller: _searchController,
