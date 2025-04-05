@@ -9,4 +9,7 @@ class PokemonDetailsEntity extends PokemonEntity {
     this.height,
     this.weight,
   );
+
+  int get heightToCM => height * 10;
+  double get weightToKG => weight / 10;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im_mottu_mobile/core/routes/app_pages.dart';
 import 'package:im_mottu_mobile/ui/pages/home/home_controller.dart';
 import 'package:im_mottu_mobile/ui/pages/home/widgets/pokemon_card.dart';
 
@@ -24,7 +25,12 @@ class HomePage extends GetView<HomeController> {
                     ?.map(
                       (pokemon) => PokemonCard(
                         pokemon: pokemon,
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.pokemonDetails,
+                            arguments: pokemon.name,
+                          );
+                        },
                       ),
                     )
                     .toList() ??
