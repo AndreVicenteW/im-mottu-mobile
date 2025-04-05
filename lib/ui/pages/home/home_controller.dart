@@ -10,16 +10,20 @@ class HomeController extends GetxController
 
   @override
   void onInit() {
-    _getPokemonList();
+    getPokemonList();
     super.onInit();
   }
 
-  Future _getPokemonList() async {
+  Future getPokemonList({
+    String search = '',
+  }) async {
     change(null, status: RxStatus.loading());
 
-    final result = await _pokemonUseCase.getAll();
+    final result = await _pokemonUseCase.getAll(
+      search: search,
+    );
 
-    if(result.isSuccess) {
+    if (result.isSuccess) {
       change(result.data, status: RxStatus.success());
     } else {
       change(null, status: RxStatus.error(result.error.toString()));

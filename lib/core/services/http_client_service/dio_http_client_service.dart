@@ -3,8 +3,8 @@ import 'package:im_mottu_mobile/core/services/http_client_service/http_client_se
 import 'package:dio/dio.dart';
 
 class DioHttpClientService extends HttpClientService {
-
   final Dio _dio;
+  final _cache = <Uri, Response>{};
 
   DioHttpClientService(this._dio);
 
@@ -12,22 +12,64 @@ class DioHttpClientService extends HttpClientService {
     _dio.interceptors.add(_defaultParamsInterceptor());
   }
 
-  InterceptorsWrapper _defaultParamsInterceptor() => InterceptorsWrapper(onRequest: (opts, handler) async {
-    _onRequestLog(opts);
-    return handler.next(opts);
-  }, onError: (error, handler) async {
-    _onErrorLog(error);
-    return handler.next(error);
-  }, onResponse: (res, handler) async {
-    _onResponseLog(res);
-    return handler.next(res);
-  });
+  InterceptorsWrapper _defaultParamsInterceptor() => InterceptorsWrapper(
+      onRequest: _onRequest,
+      onError: _onError,
+      onResponse: (res, handler) async {
+        _onResponseLog(res);
+        _saveCache(res);
+        return handler.next(res);
+      });
 
-  void _onRequestLog(RequestOptions options) {
+  dynamic _onRequest(RequestOptions opts, handler) async {
+    var cachedResponse = _checkResponseIsCached(opts.uri);
+    if (cachedResponse != null) {
+      _onRequestLog(opts, fromCache: true);
+      return handler.resolve(cachedResponse);
+    } else {
+      _onRequestLog(opts);
+      return handler.next(opts);
+    }
+  }
+
+  dynamic _onError(DioException err, handler) {
+    var isConnectionError = err.type == DioExceptionType.connectionError;
+
+    if (isConnectionError) {
+      _getCache(err.requestOptions.uri, handler);
+    }
+
+    _onErrorLog(err);
+    return handler.next(err);
+  }
+
+  dynamic _getCache(Uri uri, handler) {
+    var cachedResponse = _checkResponseIsCached(uri);
+    if (cachedResponse != null) {
+      return handler.resolve(cachedResponse);
+    }
+  }
+
+  Response? _checkResponseIsCached(Uri uri) {
+    return _cache[uri];
+  }
+
+  void _saveCache(Response res) {
+    var key = res.requestOptions.uri;
+    _cache[key] = res;
+  }
+
+  void _onRequestLog(
+    RequestOptions options, {
+    fromCache = false,
+  }) {
     debugPrint('====================  REQUEST LOG  ====================');
     debugPrint('METHOD CALLED: ${options.method}');
     debugPrint('PATH CALLED: ${options.path}');
     debugPrint('BODY: ${options.data}');
+    if (fromCache) {
+      debugPrint('CACHED');
+    }
     debugPrint('=======================================================');
   }
 
@@ -49,10 +91,10 @@ class DioHttpClientService extends HttpClientService {
 
   @override
   Future delete(
-      String url, {
-        Map<String, dynamic>? queryParameters,
-        Map<String, String>? headers,
-      }) {
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) {
     return _dio.delete(
       url,
       queryParameters: queryParameters,
@@ -64,10 +106,10 @@ class DioHttpClientService extends HttpClientService {
 
   @override
   Future get(
-      String url, {
-        Map<String, dynamic>? queryParameters,
-        Map<String, String>? headers,
-      }) {
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) {
     return _dio.get(
       url,
       queryParameters: queryParameters,
@@ -79,11 +121,11 @@ class DioHttpClientService extends HttpClientService {
 
   @override
   Future patch(
-      String url, {
-        Map? body,
-        Map<String, dynamic>? queryParameters,
-        Map<String, String>? headers,
-      }) {
+    String url, {
+    Map? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) {
     return _dio.patch(
       url,
       data: body,
@@ -96,11 +138,11 @@ class DioHttpClientService extends HttpClientService {
 
   @override
   Future post(
-      String url, {
-        Map? body,
-        Map<String, dynamic>? queryParameters,
-        Map<String, String>? headers,
-      }) {
+    String url, {
+    Map? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) {
     return _dio.post(
       url,
       data: body,
@@ -113,11 +155,11 @@ class DioHttpClientService extends HttpClientService {
 
   @override
   Future put(
-      String url, {
-        Map? body,
-        Map<String, dynamic>? queryParameters,
-        Map<String, String>? headers,
-      }) {
+    String url, {
+    Map? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) {
     return _dio.put(
       url,
       data: body,
@@ -127,5 +169,4 @@ class DioHttpClientService extends HttpClientService {
       ),
     );
   }
-
 }

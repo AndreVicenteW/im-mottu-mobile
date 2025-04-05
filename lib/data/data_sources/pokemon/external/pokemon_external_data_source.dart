@@ -15,15 +15,37 @@ class PokemonExternalDataSource extends PokemonDataSource {
   final String _pokemonUrl = '${ProjectConstants.baseUrl}/pokemon';
 
   @override
-  Future<DataResult<List<PokemonEntity>>> getAll() async {
+  Future<DataResult<List<PokemonEntity>>> getAll({
+    String search = '',
+  }) async {
     try {
-      final result = await _httpClientService.get(_pokemonUrl);
+      final limit = search.isNotEmpty ? 1000 : 60;
+
+      var queryParameters = {
+        'limit': limit,
+      };
+
+      final result = await _httpClientService.get(
+        _pokemonUrl,
+        queryParameters: queryParameters,
+      );
 
       final resultsList = result.data["results"] as List<dynamic>;
 
-      final data = resultsList.map((pokemon) {
-        return PokemonDto.fromJson(pokemon);
-      }).toList();
+      final List<PokemonEntity> data = [];
+
+      for (var pokemon in resultsList) {
+        final pokemonDto = PokemonDto.fromJson(pokemon);
+        if (search.isEmpty) {
+          data.add(pokemonDto);
+          continue;
+        } else if (pokemonDto.name
+            .toLowerCase()
+            .contains(search.toLowerCase())) {
+          data.add(pokemonDto);
+          continue;
+        }
+      }
 
       return DataResult.success(data);
     } catch (error) {
