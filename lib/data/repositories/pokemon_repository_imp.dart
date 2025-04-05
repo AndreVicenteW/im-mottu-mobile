@@ -10,8 +10,13 @@ class PokemonRepositoryImp extends PokemonRepository {
   PokemonRepositoryImp(this._pokemonDataSource);
 
   @override
-  Future<DataResult<List<PokemonEntity>>> getAll() {
-    return _pokemonDataSource.getAll();
+  Future<DataResult<List<PokemonEntity>>> getAll({
+    String search = '',
+    bool pagination = false,
+  }) {
+    return _pokemonDataSource.getAll(
+      search: search,
+    );
   }
 
   @override

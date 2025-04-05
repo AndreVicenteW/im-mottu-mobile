@@ -3,6 +3,8 @@ import 'package:im_mottu_mobile/domain/entities/pokemon_details_entity.dart';
 import 'package:im_mottu_mobile/domain/entities/pokemon_entity.dart';
 
 abstract class PokemonDataSource {
-  Future<DataResult<List<PokemonEntity>>> getAll();
+  Future<DataResult<List<PokemonEntity>>> getAll({
+    String search = '',
+  });
   Future<DataResult<PokemonDetailsEntity>> getPokemonDetails(String name);
 }
