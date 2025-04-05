@@ -5,13 +5,8 @@ part 'pokemon_dto.g.dart';
 
 @JsonSerializable()
 class PokemonDto extends PokemonEntity {
+  PokemonDto(super.name);
 
-  @override
-  final String name;
-
-  PokemonDto(
-    this.name,
-  ) : super(name);
-
-  factory PokemonDto.fromJson(Map<String, dynamic> json) => _$PokemonDtoFromJson(json);
+  factory PokemonDto.fromJson(Map<String, dynamic> json) =>
+      _$PokemonDtoFromJson(json);
 }

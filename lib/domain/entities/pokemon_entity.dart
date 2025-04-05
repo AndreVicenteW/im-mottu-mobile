@@ -5,7 +5,5 @@ class PokemonEntity {
     this.name,
   );
 
-  String get image =>
-    'https://img.pokemondb.net/artwork/$name.jpg';
-
+  String get image => 'https://img.pokemondb.net/artwork/$name.jpg';
 }
