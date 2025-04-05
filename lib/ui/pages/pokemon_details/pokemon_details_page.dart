@@ -17,7 +17,7 @@ class PokemonDetailsPage extends GetView<PokemonDetailsController> {
         child: controller.obx(
           onLoading: const Center(child: CircularProgressIndicator()),
           onEmpty: const Text('No data found'),
-          onError: (error) => Center(child: Text(error ?? '')),
+          onError: (error) => const Center(child: Text('Error, no data found')),
           (pokemon) => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
