@@ -5,12 +5,35 @@ import 'package:im_mottu_mobile/core/routes/app_pages.dart';
 import 'package:im_mottu_mobile/ui/pages/home/home_controller.dart';
 import 'package:im_mottu_mobile/ui/pages/home/widgets/pokemon_card.dart';
 
-class HomePage extends GetView<HomeController> {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  final controller = Get.find<HomeController>();
   final _searchController = TextEditingController();
   final _debounce = DebounceHelper(milliseconds: 1000);
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        _searchController.text.isEmpty) {
+      controller.getPokemonList(
+        search: _searchController.text,
+        pagination: true,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +76,7 @@ class HomePage extends GetView<HomeController> {
                 onEmpty: const Text('No data found'),
                 onError: (error) => Center(child: Text(error ?? '')),
                 (state) => GridView.count(
+                  controller: _scrollController,
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   crossAxisSpacing: 16,

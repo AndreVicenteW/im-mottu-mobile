@@ -6,6 +6,7 @@ import 'package:im_mottu_mobile/domain/repositories/pokemon_repository.dart';
 abstract class PokemonUseCase {
   Future<DataResult<List<PokemonEntity>>> getAll({
     String search = '',
+    bool pagination = false,
   });
 
   Future<DataResult<PokemonDetailsEntity>> getPokemonDetails(String name);
@@ -19,9 +20,11 @@ class PokemonUseCaseImp implements PokemonUseCase {
   @override
   Future<DataResult<List<PokemonEntity>>> getAll({
     String search = '',
+    bool pagination = false,
   }) {
     return _pokemonRepository.getAll(
       search: search,
+      pagination: pagination,
     );
   }
 

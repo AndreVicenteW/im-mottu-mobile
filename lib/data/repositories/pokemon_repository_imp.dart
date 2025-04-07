@@ -16,6 +16,7 @@ class PokemonRepositoryImp extends PokemonRepository {
   }) {
     return _pokemonDataSource.getAll(
       search: search,
+      pagination: pagination,
     );
   }
 

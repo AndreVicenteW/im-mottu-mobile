@@ -13,16 +13,23 @@ class PokemonExternalDataSource extends PokemonDataSource {
   PokemonExternalDataSource(this._httpClientService);
 
   final String _pokemonUrl = '${ProjectConstants.baseUrl}/pokemon';
+  static const int _limit = 30;
+  int _offset = 0;
 
   @override
   Future<DataResult<List<PokemonEntity>>> getAll({
     String search = '',
+    bool pagination = false,
   }) async {
     try {
-      final limit = search.isNotEmpty ? 1000 : 60;
+
+      _offset = (pagination)? _offset + _limit : 0;
+
+      final limit = search.isNotEmpty ? 1000 : _limit;
 
       var queryParameters = {
         'limit': limit,
+        'offset': _offset,
       };
 
       final result = await _httpClientService.get(
