@@ -1,3 +1,4 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:im_mottu_mobile/domain/entities/pokemon_entity.dart';
 import 'package:im_mottu_mobile/domain/use_cases/pokemon_use_case.dart';
@@ -10,6 +11,7 @@ class HomeController extends GetxController
 
   @override
   void onInit() {
+    FlutterNativeSplash.remove();
     getPokemonList();
     super.onInit();
   }

@@ -8,6 +8,7 @@ import 'package:im_mottu_mobile/ui/pages/home/widgets/pokemon_card.dart';
 class HomePage extends GetView<HomeController> {
   HomePage({super.key});
 
+
   final _searchController = TextEditingController();
   final _debounce = DebounceHelper(milliseconds: 1000);
 
