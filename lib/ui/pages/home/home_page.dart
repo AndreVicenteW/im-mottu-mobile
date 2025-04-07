@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im_mottu_mobile/core/helpers/debounce_helper.dart';
-import 'package:im_mottu_mobile/core/routes/app_pages.dart';
 import 'package:im_mottu_mobile/ui/pages/home/home_controller.dart';
-import 'package:im_mottu_mobile/ui/pages/home/widgets/pokemon_card.dart';
+import 'package:im_mottu_mobile/ui/widgets/pokemon_grid.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,26 +74,9 @@ class _HomePageState extends State<HomePage> {
                 onLoading: const Center(child: CircularProgressIndicator()),
                 onEmpty: const Text('No data found'),
                 onError: (error) => Center(child: Text(error ?? '')),
-                (state) => GridView.count(
-                  controller: _scrollController,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  children: state
-                          ?.map(
-                            (pokemon) => PokemonCard(
-                              pokemon: pokemon,
-                              onTap: () {
-                                Get.toNamed(
-                                  AppRoutes.pokemonDetails,
-                                  arguments: pokemon.name,
-                                );
-                              },
-                            ),
-                          )
-                          .toList() ??
-                      [],
+                (state) => PokemonGrid(
+                  list: state ?? [],
+                  scrollController: _scrollController,
                 ),
               ),
             ),
