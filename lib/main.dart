@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:im_mottu_mobile/core/routes/app_pages.dart';
+import 'package:im_mottu_mobile/core/services/event_channel_connection.dart';
 import 'package:im_mottu_mobile/firebase_options.dart';
 
 void main() async {
@@ -13,6 +14,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  EventChannelConnection.startListeningConnection();
   runApp(const MyApp());
 }
 
