@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCcaXtq401TVbjFBzc6s45xfdGGjA2rQ8c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>674094040043</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>br.com.andrevicente.immottumobile.imMottuMobile</string>
+	<key>PROJECT_ID</key>
+	<string>in-mottu-mobile</string>
+	<key>STORAGE_BUCKET</key>
+	<string>in-mottu-mobile.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:674094040043:ios:26ad3174ca854f14904fae</string>
+</dict>
+</plist>
