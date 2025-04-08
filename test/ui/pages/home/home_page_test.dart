@@ -11,9 +11,6 @@ class HomeControllerMock extends GetxController
     implements HomeController {}
 
 void main() {
-  setUp(() {
-    registerFallbackValue(RxStatus.success());
-  });
 
   group('Home page test', () {
     testWidgets('Should see all widgets', (tester) async {
