@@ -91,6 +91,15 @@ class PokemonDetailsPage extends GetView<PokemonDetailsController> {
                       itemBuilder: (context, index) {
                         final ability = pokemon.abilities[index];
                         return CommonCard(
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.relatedPokemon,
+                              arguments: {
+                                "name": ability.name,
+                                "type": "ability",
+                              },
+                            );
+                          },
                           child: Center(
                             child: Text(
                               ability.name.capitalize ?? '',
