@@ -4,6 +4,6 @@ import 'package:im_mottu_mobile/ui/pages/pokemon_details/pokemon_details_control
 class PokemonDetailsBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => PokemonDetailsController(Get.find()));
+    Get.create<PokemonDetailsController>(() => (PokemonDetailsController(Get.find())));
   }
 }

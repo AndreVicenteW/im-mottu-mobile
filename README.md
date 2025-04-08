@@ -1,16 +1,40 @@
-# im_mottu_mobile
 
-A new Flutter project.
+# Mottu Mobile — Teste prático Flutter com PokeAPI
 
-## Getting Started
+Etapa teste para Mottu.\
+Utilizando a PokeAPI, foram criadas as 3 etapas propostas no teste.
 
-This project is a starting point for a Flutter application.
+✅ Nível 1\
+✅ Nível 2\
+✅ Nível 3
 
-A few resources to get you started if this is your first Flutter project:
+Os pontos extras também foram adicionados:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+✅ Utilizar **GetX**\
+✅ Configurar **Firebase Crashlytics**\
+✅ Criar **channel nativo (Kotlin)** para detectar mudanças de conexão e exibir mensagem de status offline no app\
+✅ Utilizar uma arquitetura (a escolhida foi **MVVM**)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## Como rodar o projeto
+
+Intalar as dependencias do projeto
+
+```
+flutter pub get
+```
+
+Rodar o gerador de código
+
+```
+flutter pub run build_runner build
+```
+
+## Estrutura de pastas do projeto
+
+- lib
+    - core (helpers e classes de configuração do projeto)
+    - data (camada de data contendo dtos, data sources e implementação dos repositories)
+    - domain (camada de dominio contento entities, use cases e classes abstratas dos repositories)
+    - ui (camada de ui contento toda parte visual do app e também os controllers)

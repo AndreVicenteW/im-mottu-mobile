@@ -20,7 +20,13 @@ class PokemonCard extends StatelessWidget {
       child: CommonCard(
         child: Column(
           children: [
-            Expanded(child: Image.network(pokemon.image)),
+            Expanded(
+              child: Image.network(
+                pokemon.image,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.error),
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               pokemon.name.capitalize ?? '',

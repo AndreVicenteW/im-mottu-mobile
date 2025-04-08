@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im_mottu_mobile/core/routes/app_pages.dart';
 import 'package:im_mottu_mobile/ui/pages/pokemon_details/pokemon_details_controller.dart';
 import 'package:im_mottu_mobile/ui/pages/pokemon_details/widgets/pokemon_details_horizontal_list.dart';
 import 'package:im_mottu_mobile/ui/widgets/common_card.dart';
@@ -64,6 +65,15 @@ class PokemonDetailsPage extends GetView<PokemonDetailsController> {
                       itemBuilder: (context, index) {
                         final type = pokemon.types[index];
                         return CommonCard(
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.relatedPokemon,
+                              arguments: {
+                                "name": type.name,
+                                "type": "type",
+                              },
+                            );
+                          },
                           child: Center(
                             child: Text(
                               type.name.capitalize ?? '',
@@ -81,6 +91,15 @@ class PokemonDetailsPage extends GetView<PokemonDetailsController> {
                       itemBuilder: (context, index) {
                         final ability = pokemon.abilities[index];
                         return CommonCard(
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.relatedPokemon,
+                              arguments: {
+                                "name": ability.name,
+                                "type": "ability",
+                              },
+                            );
+                          },
                           child: Center(
                             child: Text(
                               ability.name.capitalize ?? '',
